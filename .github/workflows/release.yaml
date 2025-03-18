@@ -53,3 +53,10 @@ jobs:
 
       - name: Print Latest Tag
         run: echo "The latest tag is $LATEST_TAG" >> README.md
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.email "kishore.t533@gmail.com"
+          git config --global user.name "kishore"
+          git add README.md
+          git commit -m "Auto-update README with PR timestamp" || echo "No changes to commit"
+          git push -u origin ${{ github.head_ref }} 
