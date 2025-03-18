@@ -22,6 +22,7 @@ jobs:
       - name: Update README file
         run: |
           echo "### Last PR Updated: $(date)" >> README.md
+          echo "### Latest Version: $TAG" >> README.md
 
       - name: Commit and Push Changes
         run: |
