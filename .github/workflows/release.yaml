@@ -25,10 +25,10 @@ jobs:
       #     echo "### Latest Version: $TAG" >> README.md
       - name: Get Latest Tag
         id: get_tag
-        run: echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
-
+        run: echo "TAG=$(git describe --tags --abbrev=0)"
       - name: Update README.md
         run: |
+          echo "### Latest Version: $TAG"
           echo "### Latest Version: $TAG" >> README.md
 
       # - name: Commit and Push Changes
