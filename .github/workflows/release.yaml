@@ -1,15 +1,15 @@
-# example 1: on push to master
-name: Bump version
+name: Update README on PR
+
 on:
-  push:
-    branches:
-      - master
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 jobs:
-  build:
-    runs-on: ubuntu-22.04
-    permissions:
-      contents: write
+  update-readme:
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
@@ -19,3 +19,11 @@ jobs:
       - name: Update README file
         run: |
           echo "### Last PR Updated: $(date)" >> README.md
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Auto-update README with PR timestamp" || echo "No changes to commit"
+          git push origin HEAD:${{ github.head_ref }}
