@@ -3,7 +3,7 @@ name: Update README on PR
 on:
   pull_request:
     types:
-      - opened
+      - closed
       - synchronize
     branches:
       - master
