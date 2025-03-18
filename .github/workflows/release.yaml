@@ -1,12 +1,13 @@
 name: Update README on PR
 
 on:
+    push:
   # pull_request:
   #   types:
   #     - closed
   #     - synchronize
-    branches:
-      - master
+      branches:
+        - master
 
 jobs:
   update-readme:
