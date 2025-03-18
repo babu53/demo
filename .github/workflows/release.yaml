@@ -29,7 +29,6 @@ jobs:
 
       - name: Update README.md
         run: |
-          # sed -i '/^### Latest Version:/d' README.md
           echo "### Latest Version: $TAG" >> README.md
 
       - name: Commit and Push Changes
