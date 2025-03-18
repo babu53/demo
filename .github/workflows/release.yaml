@@ -14,14 +14,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
+      # - name: Checkout the repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     ref: ${{ github.head_ref }}
 
-      - name: Update README file
+      # - name: Update README file
+      #   run: |
+      #     echo "### Last PR Updated: $(date)" >> README.md
+      #     echo "### Latest Version: $TAG" >> README.md
+      - name: Get Latest Tag
+        id: get_tag
+        run: echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+
+      - name: Update README.md
         run: |
-          echo "### Last PR Updated: $(date)" >> README.md
+          sed -i '/^### Latest Version:/d' README.md
           echo "### Latest Version: $TAG" >> README.md
 
       - name: Commit and Push Changes
