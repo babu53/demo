@@ -1,0 +1,12 @@
+name: test file
+on:
+ push:
+  branches:
+   - master
+jobs:
+ test:
+  runs_on: self-hosted
+  steps:
+    -name: run linux commands
+     run: |
+      echo "this is test file"
