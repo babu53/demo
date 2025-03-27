@@ -8,3 +8,4 @@ The latest tag is 0.3.0
 The latest tag is 0.4.0
 \n The latest tag is 0.5.0
 The latest tag is 0.6.0
+The latest tag is 0.7.0
