@@ -11,3 +11,4 @@ The latest tag is 0.6.0
 The latest tag is 0.7.0
 The latest tag is 0.8.0
 The latest tag is 0.9.0
+The latest tag is 0.10.0
