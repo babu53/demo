@@ -7,6 +7,6 @@ jobs:
  test:
   runs_on: self-hosted
   steps:
-    -name: run linux commands
-     run: |
-      echo "this is test file"
+    - name: run linux commands
+      run: |
+        echo "this is test file"
