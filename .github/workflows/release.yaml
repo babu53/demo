@@ -15,11 +15,11 @@ on:
         description: "Enter the application version to deploy"
         required: true
         default: "latest"
-      debug:
-        description: "Enable debug mode?"
-        required: false
-        default: "false"
-        type: boolean
+      # debug:
+      #   description: "Enable debug mode?"
+      #   required: false
+      #   default: "false"  ctrl + /
+      #   type: boolean
 
 jobs:
   deploy:
