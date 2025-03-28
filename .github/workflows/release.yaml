@@ -1,39 +1,32 @@
-name: Update README on PR
+name: Deploy Workflow
 
 on:
-    push:
-  # pull_request:
-  #   types:
-  #     - closed
-  #     - synchronize
-      branches:
-        - master
-      paths-ignore:
-        - 'README.md'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Select the deployment environment"
+        required: true
+        default: "staging"
+        type: choice
+        options:
+          - staging
+          - production
+
 jobs:
-  get-latest-tag:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Ensures all tags are fetched
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
-          WITH_V: false
 
-      - name: Get Latest Tag
-        id: latest_tag
-        run: echo "LATEST_TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+      - name: Display Selected Environment
+        run: echo "Deploying to ${{ github.event.inputs.environment }}"
 
-      - name: Print Latest Tag
-        run: echo -e "The latest tag is $LATEST_TAG" >> README.md
-      - name: Commit and Push Changes
-        run: |
-          git config --global user.email "kishore.t533@gmail.com"
-          git config --global user.name "kishore"
-          git add README.md
-          git commit -m "Auto-update README with PR timestamp" || echo "No changes to commit"
-          git push -u origin ${{ github.head_ref }} 
+      - name: Deploy to Staging
+        if: github.event.inputs.environment == 'staging'
+        run: echo "Deploying to Staging environment"
+
+      - name: Deploy to Production
+        if: github.event.inputs.environment == 'production'
+        run: echo "Deploying to Production environment"
