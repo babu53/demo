@@ -1,24 +1,25 @@
-name: Deploy Workflow
+name: Manual Input Workflow
 
 on:
   workflow_dispatch:
     inputs:
       environment:
-        description: "Select the deployment environment"
+        description: "Choose the deployment environment"
         required: true
         default: "staging"
         type: choice
         options:
           - staging
           - production
-      environment:
-        description: "Select the deploymenet  tag "
+      version:
+        description: "Enter the application version to deploy"
         required: true
-        default: "v.1.1"
-        type: choice
-        options:
-          - 
-        
+        default: "latest"
+      debug:
+        description: "Enable debug mode?"
+        required: false
+        default: "false"
+        type: boolean
 
 jobs:
   deploy:
@@ -28,13 +29,20 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Display Selected Environment
-        run: echo "Deploying to ${{ github.event.inputs.environment }}"
+      - name: Show Inputs
+        run: |
+          echo "Environment: ${{ github.event.inputs.environment }}"
+          echo "Version: ${{ github.event.inputs.version }}"
+          echo "Debug Mode: ${{ github.event.inputs.debug }}"
 
       - name: Deploy to Staging
         if: github.event.inputs.environment == 'staging'
-        run: echo "Deploying to Staging environment"
+        run: echo "Deploying version ${{ github.event.inputs.version }} to Staging"
 
       - name: Deploy to Production
         if: github.event.inputs.environment == 'production'
-        run: echo "Deploying to Production environment"
+        run: echo "Deploying version ${{ github.event.inputs.version }} to Production"
+
+      - name: Enable Debug Mode
+        if: github.event.inputs.debug == 'true'
+        run: echo "Debug mode is enabled"
