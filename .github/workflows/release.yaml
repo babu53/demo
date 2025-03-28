@@ -11,6 +11,14 @@ on:
         options:
           - staging
           - production
+      environment:
+        description: "Select the deploymenet  tag "
+        required: true
+        default: "v.1.1"
+        type: choice
+        options:
+          - 
+        
 
 jobs:
   deploy:
