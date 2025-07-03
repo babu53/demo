@@ -38,7 +38,7 @@ jobs:
           echo "Environment: ${{ github.event.inputs.environ }}"
           echo "Version: ${{ github.event.inputs.version }}"
           echo "Debug Mode: ${{ github.event.inputs.debug }}"
-          echo " ${{name }}:${{ surname }}"
+          echo "print my name: $name"
 
       - name: Deploy to Staging
         if: github.event.inputs.environ == 'staging'
