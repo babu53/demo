@@ -3,7 +3,7 @@ name: Manual Input Workflow
 on:
   workflow_dispatch:
     inputs:
-      environment:
+      environ:
         description: "Choose the deployment environment"
         required: true
         default: "staging"
@@ -31,16 +31,16 @@ jobs:
 
       - name: Show Inputs
         run: |
-          echo "Environment: ${{ github.event.inputs.environment }}"
+          echo "Environment: ${{ github.event.inputs.environ }}"
           echo "Version: ${{ github.event.inputs.version }}"
           echo "Debug Mode: ${{ github.event.inputs.debug }}"
 
       - name: Deploy to Staging
-        if: github.event.inputs.environment == 'staging'
+        if: github.event.inputs.environ == 'staging'
         run: echo "Deploying version ${{ github.event.inputs.version }} to Staging"
 
       - name: Deploy to Production
-        if: github.event.inputs.environment == 'production'
+        if: github.event.inputs.environ == 'production'
         run: echo "Deploying version ${{ github.event.inputs.version }} to Production"
 
       - name: Enable Debug Mode
