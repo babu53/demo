@@ -20,9 +20,9 @@ on:
       #   required: false
       #   default: "false"  ctrl + /
       #   type: boolean
-    env:
-     NAME: kishorebabu
-     surname: talluri
+env:
+  NAME: kishorebabu
+  surname: talluri
 
 
 jobs:
@@ -39,6 +39,7 @@ jobs:
           echo "Version: ${{ github.event.inputs.version }}"
           echo "Debug Mode: ${{ github.event.inputs.debug }}"
           echo "print my name: $NAME"
+          echo "this is my $surname"
 
       - name: Deploy to Staging
         if: github.event.inputs.environ == 'staging'
