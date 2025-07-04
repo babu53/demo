@@ -1,4 +1,4 @@
-name: $NAME-${{ github.run_number}}
+name: CI-WORKFLOW
 
 on:
   workflow_dispatch:
