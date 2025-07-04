@@ -1,6 +1,6 @@
 name: EnV-if-file
 on:
-  workflow-dispatch:
+  workflow_dispatch:
     inputs:
       environment:
         type: string
