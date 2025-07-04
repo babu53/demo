@@ -15,9 +15,9 @@ jobs:
       run: echo "ENV_NAME=production" >> $GITHUB_ENV
 
     - name: Set ENV_NAME to staging if not prod
-        if: ${{ github.event.inputs.target != 'prod' }}
-        run: echo "ENV_NAME=staging" >> $GITHUB_ENV
+      if: ${{ github.event.inputs.target != 'prod' }}
+      run: echo "ENV_NAME=staging" >> $GITHUB_ENV
 
     - name: Print final ENV_NAME
-        run: echo "ENV_NAME is $ENV_NAME"
+      run: echo "ENV_NAME is $ENV_NAME"
      
