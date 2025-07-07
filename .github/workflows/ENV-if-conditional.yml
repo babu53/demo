@@ -33,7 +33,7 @@ on:
       first:
         description: "Target environment"
         required: true
-        default: dev
+        default: ''
         type: choice
         options:
           - dev
@@ -41,7 +41,7 @@ on:
       second:
         description: "Target environment"
         required: true
-        default: one
+        default: ''
         type: choice
         options:
           - one
