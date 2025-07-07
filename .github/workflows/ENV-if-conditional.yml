@@ -30,22 +30,29 @@ name: Global Env via Job Outputs
 on:
   workflow_dispatch:
     inputs:
-      first:
-        description: "Target environment"
-        required: true
-        #default: ''
-        type: choice
-        options:
-          - dev
-          - prod
-      second:
-        description: "Target environment"
-        required: true
-        #default: ''
-        type: choice
-        options:
-          - one
-          - two
+      # first:
+      #   description: "Target environment"
+      #   required: true
+      #   #default: ''
+      #   type: choice
+      #   options:
+      #     - dev
+      #     - prod
+      # second:
+      #   description: "Target environment"
+      #   required: true
+      #   #default: ''
+      #   type: choice
+      #   options:
+      #     - one
+      #     - two
+      buildnumber:
+       description: build number
+       type: string
+       reqired: true
+       options:
+       value:
+         - test.2025
 
 jobs:
   setup:
@@ -53,32 +60,42 @@ jobs:
     outputs:
       env_name: ${{ steps.setenv.outputs.env_name }}
       env_one: ${{ steps.setenv1.outputs.env_one}}
+      env_buildnumber: ${{ steps.setbuild.outputs.env_buildnumber}}
     steps:
-      - name: Set ENV_NAME based on input
-        id: setenv
+      # - name: Set ENV_NAME based on input
+      #   id: setenv
+      #   run: |
+      #     if [[ "${{ github.event.inputs.first }}" == "prod" ]]; then
+      #       echo "env_name=true" >> $GITHUB_OUTPUT
+      #     else
+      #       echo "env_name=false" >> $GITHUB_OUTPUT
+      #     fi
+      # - name: Set ENV_NAME based on input
+      #   id: setenv1
+      #   run: |
+      #     if [[ "${{ github.event.inputs.second }}" == "one" ]]; then
+      #       echo "env_one=true" >> $GITHUB_OUTPUT
+      #     else
+      #       echo "env_one=false" >> $GITHUB_OUTPUT
+      #     fi
+
+      - name: Set build number
+        id: setbuild
         run: |
-          if [[ "${{ github.event.inputs.first }}" == "prod" ]]; then
-            echo "env_name=true" >> $GITHUB_OUTPUT
-          else
-            echo "env_name=false" >> $GITHUB_OUTPUT
-          fi
-      - name: Set ENV_NAME based on input
-        id: setenv1
-        run: |
-          if [[ "${{ github.event.inputs.second }}" == "one" ]]; then
-            echo "env_one=true" >> $GITHUB_OUTPUT
-          else
-            echo "env_one=false" >> $GITHUB_OUTPUT
-          fi
+          run: echo "BUILD_ID=${{ github.event.inputs.buildnumber }}-${{ github.run_number }}" >> $GITHUB_BUILD
+          
 
   use-env:
     runs-on: ubuntu-latest
     needs: setup
     env:
-      ENV_NAME: ${{ needs.setup.outputs.env_name }}
-      ENV_ONE: ${{ needs.setup.outputs.env_one}}
+      # ENV_NAME: ${{ needs.setup.outputs.env_name }}
+      # ENV_ONE: ${{ needs.setup.outputs.env_one}}
+      ENV_BUILD: ${{needs.setup.outputs.env_buildnumber}}
     steps:
-      - name: Print the environment name
+      # - name: Print the environment name
+      - name: print build number
         run: |
-          echo "Using ENV_NAME: $ENV_NAME"
-          echo "Using ENV_ONE: $ENV_ONE"
+          # echo "Using ENV_NAME: $ENV_NAME"
+          # echo "Using ENV_ONE: $ENV_ONE"
+          echo "build numer is : $ENV_BUILD"
