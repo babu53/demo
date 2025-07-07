@@ -41,7 +41,7 @@ on:
       second:
         description: "Target environment"
         required: true
-        default: dev
+        default: one
         type: choice
         options:
           - one
