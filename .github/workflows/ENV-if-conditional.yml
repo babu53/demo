@@ -82,7 +82,7 @@ jobs:
       - name: Set build number
         id: setbuild
         run: |
-          run: echo "BUILD_ID=${{ github.event.inputs.buildnumber }}-${{ github.run_number }}" >> $GITHUB_BUILD
+          run: echo "BUILD_ID=${{ github.event.inputs.buildnumber }}-${{ github.run_number }}" >> $GITHUB_OUTPUT
           
 
   use-env:
@@ -98,4 +98,4 @@ jobs:
         run: |
           # echo "Using ENV_NAME: $ENV_NAME"
           # echo "Using ENV_ONE: $ENV_ONE"
-          echo "build numer is : $ENV_BUILD"
+          echo "build numer is : $BUILD_ID"
