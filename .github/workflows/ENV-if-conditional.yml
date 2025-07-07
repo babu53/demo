@@ -48,11 +48,8 @@ on:
       #     - two
       buildnumber:
        description: build number
-       type: string
        reqired: true
-       options:
-       value:
-         - test.2025
+       default: test.2025
 
 jobs:
   setup:
