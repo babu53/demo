@@ -30,7 +30,7 @@ name: Global Env via Job Outputs
 on:
   workflow_dispatch:
     inputs:
-      target:
+      first:
         description: "Target environment"
         required: true
         default: dev
@@ -38,6 +38,14 @@ on:
         options:
           - dev
           - prod
+      second:
+        description: "Target environment"
+        required: true
+        default: dev
+        type: choice
+        options:
+          - one
+          - two
 
 jobs:
   setup:
@@ -48,7 +56,15 @@ jobs:
       - name: Set ENV_NAME based on input
         id: setenv
         run: |
-          if [[ "${{ github.event.inputs.target }}" == "prod" ]]; then
+          if [[ "${{ github.event.inputs.first }}" == "prod" ]]; then
+            echo "env_name=true" >> $GITHUB_OUTPUT
+          else
+            echo "env_name=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Set ENV_NAME based on input
+        id: setenv
+        run: |
+          if [[ "${{ github.event.inputs.second }}" == "one" ]]; then
             echo "env_name=true" >> $GITHUB_OUTPUT
           else
             echo "env_name=false" >> $GITHUB_OUTPUT
