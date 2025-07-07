@@ -5,6 +5,10 @@ on:
       environment:
         type: string
         description: this is for testing
+        choice:
+          - prod
+          - stage
+          - dev
         default: prod
 jobs:
   SET-env:
