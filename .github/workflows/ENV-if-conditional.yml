@@ -52,6 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       env_name: ${{ steps.setenv.outputs.env_name }}
+      env_one: ${{ steps.setenv1.outputs.env_one}}
     steps:
       - name: Set ENV_NAME based on input
         id: setenv
@@ -75,7 +76,9 @@ jobs:
     needs: setup
     env:
       ENV_NAME: ${{ needs.setup.outputs.env_name }}
+      ENV_ONE: ${{ needs.setup.outputs.env_one}}
     steps:
       - name: Print the environment name
         run: |
           echo "Using ENV_NAME: $ENV_NAME"
+          echo "Using ENV_ONE: $ENV_ONE"
