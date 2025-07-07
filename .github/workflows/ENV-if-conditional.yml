@@ -49,9 +49,9 @@ jobs:
         id: setenv
         run: |
           if [[ "${{ github.event.inputs.target }}" == "prod" ]]; then
-            echo "env_name=production" >> $GITHUB_OUTPUT
+            echo "env_name=true" >> $GITHUB_OUTPUT
           else
-            echo "env_name=staging" >> $GITHUB_OUTPUT
+            echo "env_name=false" >> $GITHUB_OUTPUT
           fi
 
   use-env:
