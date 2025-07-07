@@ -61,4 +61,5 @@ jobs:
       ENV_NAME: ${{ needs.setup.outputs.env_name }}
     steps:
       - name: Print the environment name
-        run: echo "Using ENV_NAME: $ENV_NAME"
+        run: |
+          echo "Using ENV_NAME: $ENV_NAME"
