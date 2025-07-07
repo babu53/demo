@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        type: string
+        type: choice
         description: this is for testing
-        choice:
+        options:
           - prod
           - stage
           - dev
