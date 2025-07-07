@@ -5,7 +5,7 @@ on:
       environment:
         type: string
         description: this is for testing
-        default: dev
+        default: prod
 jobs:
   SET-env:
     runs-on: ubuntu-latest
