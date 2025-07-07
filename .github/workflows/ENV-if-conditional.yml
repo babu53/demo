@@ -62,7 +62,7 @@ jobs:
             echo "env_name=false" >> $GITHUB_OUTPUT
           fi
       - name: Set ENV_NAME based on input
-        id: setenv
+        id: setenv1
         run: |
           if [[ "${{ github.event.inputs.second }}" == "one" ]]; then
             echo "env_name=true" >> $GITHUB_OUTPUT
