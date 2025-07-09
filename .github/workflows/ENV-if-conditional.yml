@@ -106,6 +106,6 @@ jobs:
     env:
       BUILD_NUMBER: custom-${{ github.run_number }}
     steps:
-      shell: bash
       - name: Print custom build number
         run: echo "Build Number is $BUILD_NUMBER"
+        shell: run
