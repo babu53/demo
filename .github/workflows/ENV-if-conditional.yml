@@ -27,85 +27,85 @@
      
 name: Global Env via Job Outputs
 
-# on:
-#   workflow_dispatch:
-#     inputs:
-      # first:
-      #   description: "Target environment"
-      #   required: true
-      #   #default: ''
-      #   type: choice
-      #   options:
-      #     - dev
-      #     - prod
-      # second:
-      #   description: "Target environment"
-      #   required: true
-      #   #default: ''
-      #   type: choice
-      #   options:
-      #     - one
-      #     - two
-      # buildnumber:
-      #  description: build number
-      #  reqired: true
-      #  default: test.2025
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      first:
+        description: "Target environment"
+        required: true
+        #default: ''
+        type: choice
+        options:
+          - dev
+          - prod
+      second:
+        description: "Target environment"
+        required: true
+        #default: ''
+        type: choice
+        options:
+          - one
+          - two
+      buildnumber:
+       description: build number
+       reqired: true
+       default: test.2025
+# on:
+#   push:
+#     branches:
+#       - master
 
 jobs:
-  # setup:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     env_name: ${{ steps.setenv.outputs.env_name }}
-  #     env_one: ${{ steps.setenv1.outputs.env_one}}
-  #     # env_buildnumber: ${{ steps.setbuild.outputs.env_buildnumber}}
-  #   steps:
-      # - name: Set ENV_NAME based on input
-      #   id: setenv
-      #   run: |
-      #     if [[ "${{ github.event.inputs.first }}" == "prod" ]]; then
-      #       echo "env_name=true" >> $GITHUB_OUTPUT
-      #     else
-      #       echo "env_name=false" >> $GITHUB_OUTPUT
-      #     fi
-      # - name: Set ENV_NAME based on input
-      #   id: setenv1
-      #   run: |
-      #     if [[ "${{ github.event.inputs.second }}" == "one" ]]; then
-      #       echo "env_one=true" >> $GITHUB_OUTPUT
-      #     else
-      #       echo "env_one=false" >> $GITHUB_OUTPUT
-      #     fi
+  setup:
+    runs-on: windows-latest
+    outputs:
+      env_name: ${{ steps.setenv.outputs.env_name }}
+      env_one: ${{ steps.setenv1.outputs.env_one}}
+      env_buildnumber: ${{ steps.setbuild.outputs.env_buildnumber}}
+    steps:
+      - name: Set ENV_NAME based on input
+        id: setenv
+        run: |
+          if [[ "${{ github.event.inputs.first }}" == "prod" ]]; then
+            echo "env_name=true" >> $GITHUB_OUTPUT
+          else
+            echo "env_name=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Set ENV_NAME based on input
+        id: setenv1
+        run: |
+          if [[ "${{ github.event.inputs.second }}" == "one" ]]; then
+            echo "env_one=true" >> $GITHUB_OUTPUT
+          else
+            echo "env_one=false" >> $GITHUB_OUTPUT
+          fi
 
-      # - name: Set build number
-      #   id: setbuild
-      #   run: |
-      #     run: echo "BUILD_ID=${{ github.event.inputs.buildnumber }}-${{ github.run_number }}" >> $GITHUB
+      - name: Set build number
+        id: setbuild
+        run: |
+          run: echo "BUILD_ID=${{ github.event.inputs.buildnumber }}-${{ github.run_number }}" >> $GITHUB
           
 
-  # use-env:
-  #   runs-on: ubuntu-latest
-  #   needs: setup
-  #   env:
-  #     # ENV_NAME: ${{ needs.setup.outputs.env_name }}
-  #     # ENV_ONE: ${{ needs.setup.outputs.env_one}}
-  #     ENV_BUILD: ${{needs.setup.outputs.env_buildnumber}}
-  #   steps:
-  #     # - name: Print the environment name
-  #     - name: print build number
-  #       run: |
-  #         # echo "Using ENV_NAME: $ENV_NAME"
-  #         # echo "Using ENV_ONE: $ENV_ONE"
-  #         echo "build numer is : $BUILD_ID"
-  #----------------------------------------------------------------
-  build:
-    runs-on: windows-latest
+  use-env:
+    runs-on: ubuntu-latest
+    needs: setup
     env:
-      BUILD_NUMBER: custom-${{ github.run_number }}
+      ENV_NAME: ${{ needs.setup.outputs.env_name }}
+      ENV_ONE: ${{ needs.setup.outputs.env_one}}
+      ENV_BUILD: ${{needs.setup.outputs.env_buildnumber}}
     steps:
-      - name: Print custom build number
-        run: echo "Build Number is $BUILD_NUMBER"
-        shell: run
+      # - name: Print the environment name
+      - name: print build number
+        run: |
+          # echo "Using ENV_NAME: $ENV_NAME"
+          # echo "Using ENV_ONE: $ENV_ONE"
+          echo "build numer is : $BUILD_ID"
+  #----------------------------------------------------------------
+  # build:
+  #   runs-on: windows-latest
+  #   env:
+  #     BUILD_NUMBER: custom-${{ github.run_number }}
+  #   steps:
+  #     - name: Print custom build number
+  #       run: echo "Build Number is $BUILD_NUMBER"
+  #       shell: run
