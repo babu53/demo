@@ -84,7 +84,7 @@ jobs:
       - name: Set build number
         id: setbuild
         run: |
-          run: echo "BUILD_ID=${{ github.event.inputs.buildnumber }}-${{ github.run_number }}" >> $GITHUB_OUTPUT
+          echo "BUILD_ID=${{ github.event.inputs.buildnumber }}-${{ github.run_number }}" >> $GITHUB_OUTPUT
           
 
   use-env:
