@@ -98,9 +98,9 @@ jobs:
       # - name: Print the environment name
       - name: print build number
         run: |
-          # echo "Using ENV_NAME: $ENV_NAME"
-          # echo "Using ENV_ONE: $ENV_ONE"
-          echo "build numer is : $BUILD_ID"
+           echo "Using ENV_NAME: $ENV_NAME"
+           echo "Using ENV_ONE: $ENV_ONE"
+           echo "build numer is : $BUILD_ID"
   #----------------------------------------------------------------
   # build:
   #   runs-on: windows-latest
