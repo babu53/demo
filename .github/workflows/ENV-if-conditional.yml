@@ -57,7 +57,7 @@ on:
 
 jobs:
   setup:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     outputs:
       env_name: ${{ steps.setenv.outputs.env_name }}
       env_one: ${{ steps.setenv1.outputs.env_one}}
@@ -65,7 +65,7 @@ jobs:
     steps:
       - name: Set ENV_NAME based on input
         id: setenv
-        shell: bash
+        #shell: bash
         run: |
           if [[ "${{ github.event.inputs.first }}" == "prod" ]]; then
             echo "env_name=true" >> $GITHUB_OUTPUT
