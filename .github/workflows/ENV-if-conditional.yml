@@ -65,6 +65,7 @@ jobs:
     steps:
       - name: Set ENV_NAME based on input
         id: setenv
+        shell: bash
         run: |
           if [[ "${{ github.event.inputs.first }}" == "prod" ]]; then
             echo "env_name=true" >> $GITHUB_OUTPUT
