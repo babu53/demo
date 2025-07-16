@@ -57,15 +57,15 @@ on:
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     outputs:
       env_name: ${{ steps.setenv.outputs.env_name }}
       env_one: ${{ steps.setenv1.outputs.env_one}}
       env_buildnumber: ${{ steps.setbuild.outputs.env_buildnumber}}
     steps:
       - name: Set ENV_NAME based on input
+        shell: bash
         id: setenv
-        #shell: bash
         run: |
           if [[ "${{ github.event.inputs.first }}" == "prod" ]]; then
             echo "env_name=true" >> $GITHUB_OUTPUT
@@ -73,6 +73,7 @@ jobs:
             echo "env_name=false" >> $GITHUB_OUTPUT
           fi
       - name: Set ENV_NAME based on input
+        shell: bash
         id: setenv1
         run: |
           if [[ "${{ github.event.inputs.second }}" == "one" ]]; then
@@ -82,6 +83,7 @@ jobs:
           fi
 
       - name: Set build number
+        shell: bash
         id: setbuild
         run: |
           echo "BUILD_ID=${{ github.event.inputs.buildnumber }}-${{ github.run_number }}" >> $GITHUB_OUTPUT
